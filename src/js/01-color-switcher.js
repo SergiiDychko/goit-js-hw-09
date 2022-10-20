@@ -4,7 +4,6 @@ function getRandomHexColor() {
 
 const startRef = document.querySelector('[data-start]');
 const stopRef = document.querySelector('[data-stop]');
-stopRef.disabled = true;
 
 function changeColor() {
     const randomColor = getRandomHexColor();
