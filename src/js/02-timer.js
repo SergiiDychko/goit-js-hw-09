@@ -67,7 +67,7 @@ function startTimer() {
   minutesRef.textContent = addLeadingZero(timerObj.minutes);
   secondsRef.textContent = addLeadingZero(timerObj.seconds);
   msTimeDifference = msTimeDifference - 1000;
-  if (Number(msTimeDifference) < 999) {
+  if (Number(msTimeDifference) <= 0) {
     clearInterval(oneSecInterval);
     Notify.success('Time is up');
   }
