@@ -54,6 +54,8 @@ function addLeadingZero(value) {
   return value.padStart(2, '0');
 }
 
+let oneSecInterval;
+
 startRef.addEventListener('click', () => {
   oneSecInterval = setInterval(startTimer, 1000);
 });
