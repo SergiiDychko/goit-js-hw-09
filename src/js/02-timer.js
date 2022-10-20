@@ -15,7 +15,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     timeFromInput = selectedDates[0];
-    if (options.defaultDate >= timeFromInput) {
+    if (Date.now >= timeFromInput) {
       Notify.failure('Please choose a date in the future');
     }
     msTimeDifference = timeFromInput - options.defaultDate;
