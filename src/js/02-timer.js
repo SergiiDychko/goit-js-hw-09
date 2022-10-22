@@ -5,17 +5,15 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const startRef = document.querySelector('[data-start]');
 startRef.disabled = true;
 
-let timeFromInput = 0;
 let msTimeDifference = 0;
-
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    timeFromInput = selectedDates[0];
-    if (Date.now >= timeFromInput) {
+  const timeFromInput = selectedDates[0];
+    if (Date.now() >= timeFromInput) {
       Notify.failure('Please choose a date in the future');
     }
     msTimeDifference = timeFromInput - options.defaultDate;
@@ -43,11 +41,7 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-const daysRef = document.querySelector('[data-days]');
-const hoursRef = document.querySelector('[data-hours]');
-const minutesRef = document.querySelector('[data-minutes]');
-const secondsRef = document.querySelector('[data-seconds]');
-let timerObj = {};
+function getEl(el) { return document.querySelector(`[data-${el}]`) };
 
 function addLeadingZero(value) {
   value = String(value);
@@ -55,17 +49,16 @@ function addLeadingZero(value) {
 }
 
 let oneSecInterval;
-
 startRef.addEventListener('click', () => {
   oneSecInterval = setInterval(startTimer, 1000);
 });
 
 function startTimer() {
-  timerObj = convertMs(msTimeDifference);
-  daysRef.textContent = addLeadingZero(timerObj.days);
-  hoursRef.textContent = addLeadingZero(timerObj.hours);
-  minutesRef.textContent = addLeadingZero(timerObj.minutes);
-  secondsRef.textContent = addLeadingZero(timerObj.seconds);
+ const timerObj = convertMs(msTimeDifference);
+
+  for (key in timerObj) {
+  getEl(key).textContent = addLeadingZero(timerObj[key]);
+}
   msTimeDifference = msTimeDifference - 1000;
   if (Number(msTimeDifference) <= 0) {
     clearInterval(oneSecInterval);
